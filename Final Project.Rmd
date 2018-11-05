@@ -17,7 +17,7 @@ library(lubridate)
 
 ```{r message = FALSE, error = FALSE, warning = FALSE, cache = TRUE}
 
-data_17_18 <- read_excel("NHL 2017-18.xlsx", skip = 2) %>% 
+data_17_18 <- read_csv("NHL 2017-18.csv", skip = 2) %>% 
   select(Born, Cntry, Ht, Wt, Age, Position, Team, GP, Injuries, Salary,
          GP, G, A, PTS, Shot, PIM)
 
@@ -25,7 +25,7 @@ goals_shots <- data_17_18 %>%
   select(GP, A, PTS, G, Shot, Position) %>% 
   subset(Shot > 1500) %>% 
   arrange(desc(Shot)) %>% 
-  arrange(desc(G)) 
+  arrange(desc(G))
 
 points_shots <- data_17_18 %>% 
   select(GP, A, PTS, G, Shot, Position) %>% 
