@@ -7,7 +7,36 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(readr)
+library(shiny)
+library(dplyr)
+library(readxl)
+library(lubridate)
 ```
+
+```{r message = FALSE, error = FALSE, warning = FALSE, cache = TRUE}
+
+data_17_18 <- read_excel("NHL 2017-18.xlsx", skip = 2) %>% 
+  select(Born, Cntry, Ht, Wt, Age, Position, Team, GP, Injuries, Salary,
+         GP, G, A, PTS, Shot, PIM)
+
+goals_shots <- data_17_18 %>% 
+  select(GP, A, PTS, G, Shot, Position) %>% 
+  subset(Shot > 1500) %>% 
+  arrange(desc(Shot)) %>% 
+  arrange(desc(G)) 
+
+points_shots <- data_17_18 %>% 
+  select(GP, A, PTS, G, Shot, Position) %>% 
+  subset(Shot > 1500) %>% 
+  arrange(desc(Shot)) %>% 
+  arrange(desc(PTS))
+
+```
+
+
+
 
 
 For my final project I have selected data from the city of Detroit's open data portal. So far I have data on the locations of public schools downtown, sites of all demolitions, and the census block groups from 2010. I am hoping to use this data to find correlations between the demogrpahics of neighborhoods and factors like demolition frequency or the education available (size of school, number of teachers, etc.). The public school data shows not only a map of the school but the entire area it covers, whether it is still open, and the level of school it is.
