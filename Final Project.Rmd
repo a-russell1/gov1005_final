@@ -31,7 +31,7 @@ points_shots <- data_17_18 %>%
   select(GP, A, PTS, G, Shot, Position) %>% 
   subset(Shot > 1500) %>% 
   arrange(desc(Shot)) %>% 
-  arrange(desc(PTS))
+  arrange(desc(PTS)) 
 
 ```
 
