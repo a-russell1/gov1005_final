@@ -1,6 +1,6 @@
 # gov1005_final
 
-Topic:
+Main Question:
 
 Is the number of goals or points an athlete gets the determingin factor how successful they are?
 
@@ -14,5 +14,10 @@ Background Information:
 
 I got my data from hockeyabstract.com, which had collected annual data from the last 12 years on NHL team and individual statistics.
 
+
+Questions to think with:
+- Can an individual carry a team?
+- If so, is that individual often the top goal-scorer on their team?
+- Is the reason that certain players contribute more because they get more opportunities?
 
 Results:
