@@ -1,7 +1,7 @@
 
 # Main Question:
 
-Is the number of goals or points an athlete gets the determingin factor how successful they are?
+Is the number of goals or points an athlete gets the determining factor how successful they are?
 
 
 # Motivation:
