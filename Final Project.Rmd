@@ -26,23 +26,13 @@ data_17_18 <- read_csv("/Users/allie/Desktop/Gov 1005/Final Project/gov1005_fina
 
 write_rds(data_17_18, "NHL_data.rds")
 
+#datasets for shiny 
+
 goals_shots <- data_17_18 %>% 
   select(h_ref_name, team, gp, a, pts, g, i_sf, position) %>% 
   subset(i_sf > 270) %>% 
   arrange(desc(i_sf)) 
 
-country <- data_17_18 %>% 
-  select(h_ref_name, cntry, team, position, g) %>% 
-  group_by(cntry)
-
-
-##scatterplot with points as goals scored per position
 
   
 ```
-
-
-
-
-
-For my final project I have selected data from the city of Detroit's open data portal. So far I have data on the locations of public schools downtown, sites of all demolitions, and the census block groups from 2010. I am hoping to use this data to find correlations between the demogrpahics of neighborhoods and factors like demolition frequency or the education available (size of school, number of teachers, etc.). The public school data shows not only a map of the school but the entire area it covers, whether it is still open, and the level of school it is.
