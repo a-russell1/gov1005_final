@@ -12,22 +12,18 @@ library(tidyverse)
 
 data <- read_rds("NHL_data.rds")
 
-#creating the options for my drop down menu
 
-
-# Define UI
+# Beginning UI
 
 ui <- navbarPage(
   "NHL Stats in Correlation to Goals Scored",
   
-  #creating a tab for all statistics that occur during a game
+  #creating a tab for all statistics that occur during a game and will be compared to Goals Scored
   tabPanel("On Ice Stats",
   
   fluidPage(theme = shinytheme("sandstone"),
   
    titlePanel("On-Ice Statistics for Goals Scored"),
-   
-   # Inputting sidebar with all statistics that can be selected
    
    sidebarLayout(
      
@@ -44,7 +40,7 @@ ui <- navbarPage(
                                  "Total Shots Taken" = "i_sf",
                                  "Penalties in Minutes" = "pim")),
       
-        #this function is going to allow the viewer to select a specific team and see the plotted statistics of all members of the team 
+        #this function is going to allow the viewer to select a specific team and see the plotted statistics of every members of the team for whatever statistic they select
          
         radioGroupButtons("team",
                     "Select Team(s):",
@@ -89,17 +85,32 @@ ui <- navbarPage(
         em("Select an NHL team and a statistic to see its correlation to each individual's total goals scored."),
         plotOutput("on_ice"),
         br(),
-        h3("Intent:"),
-        p("Focusing on how many goals were scored by individuals on each team, that result was plotted against other statistics that contribute to how succesful a team is. Some of the statistics looked at include:"),
+        h2("Intent:"),
+        p("This tab allows you to select any team in the NHL, and see the goals scored (x-axis) by each individual on that team plotted against six (6) other statistics that may influence play (y-axis). These statistics include:"),
         p("1. Games played in (out of 82 games in the season)."),
         p("2. How many assists the player had in the regular season."),
         p("3. How many shifts the player had all season."),
         p("4. The average percentage of time that a player was on the ice during a game."),
         p("5. The total shots the player took all season."),
         p("6. The total penalty minutes the player had in the season."),
-        h3("Summary of Findings:"),
-        p("Many conclusions can be drawn from these graphs but some of the most interesting relationships occur in the Time on Ice statistic, and the Total Shots Taken."),
-        p("Time-on-Ice is a useful statistic because the clusters of players by position can help show if a team is evenly distributed in talent (where ice time is more equal across the defensemen and all four lines, or if there is a clear top line and top defense pair. Total Shots Taken is interesting because it shows whether the guys who are arguably the biggest threat offensively (able to get the most shots on net), are able to convert their opportunities into goals for their team.")
+        h2("Summary of Findings:"),
+        h3("1. Goals versus Games Played: "),
+        p("- Common to see players who play more games throughout the year scoring more goals, but can see outliers in men who did not play as many games as their teammates but still had a large offensive presence."),
+        p("*Auston Matthews (Toronto) is a good example of someone who played nearly 20 less games but still scored over 30 goals"),
+        h3("2. Goals versus Assists:"),
+        strong("3 Major Possibilities:"),
+        p("a) Higher Assists & Lower Goals: Players who set up their teammates often in the offensive zones or have a tendency to pass over shooting."),
+        p("b) Lower Assists & Higher Goals: Players with an accurate shot or have good net-front presence and can find the puck in traffic (highly populated areas of the ice and still get goals)"),
+        p("c) High Assists & High Goals: Players who are on a very offensively dominant line, where they feed off each other in equal goals and assists, or an overall strong offensive threat with passing and shooting."),
+        h3("3. Goals versus Shifts/Time-on-Ice Percentage:"),
+        p("- These statistics are similar but really interesting data comes in where you see teams with a clear top defensive pairing and a top line or two, and what teams have their manpower split between all four offensive lines and their defensemen all getting equal opportunity on ice."),
+        p("    - In other words, some teams have a line or two (offensively) that get the majority of the minutes because they are their elite lines, while other teams spread out their talent more among all four offensive lines."),
+        p("- From here you can look at the guys who get most time on ice, and if they are offensively dangerous in proportion to how many opportunities they get to play."),
+        p("The Detroit Red Wings are a good example of equally distributed time-on-ice percentages. They have 7 defensemen (in yellow) over 25% in percentage of time on ice (per game). Meanwhile 10 of their forwards (on average 12 in the lineup for a game) are over 22% in the same statistic."),
+        h3("4. Striking Stats:"),
+        p("a) Vegas is a team where defense was pretty evenly split"),
+        p("b) Buffalo is a team with a clear top defense-pair (Scandella-Ristolainen)"),
+        p("c) Boston is a team with a clear top line (Marchand-Bergeron-Pastrnak)")
       )
     )
   )
@@ -113,7 +124,7 @@ tabPanel("Top Shots",
          
          fluidPage(
            
-           titlePanel("Statistics of Players with the Most Shots Taken"),
+           titlePanel("Does Shots Taken Mean Offensive Threat?"),
            
            # Inputting sidebar with all statistics that can be selected
            
@@ -134,62 +145,36 @@ tabPanel("Top Shots",
                # Show a plot of the generated distribution
            
                mainPanel(
-                h3("13 Players with Most Shots Taken"),
+                h2("13 Players with Most Shots Taken"),
                 plotOutput("players"),
                 br(),
-                h3("Summary of Findings:"),
-                p("This graph contains only 13 players from the 2017-2018 NHL season. These were the 13 players who took a total over 275 shots throughout the year."),
-                br(),
+                h3("Intent:"),
+                p("Interested in the correlation between the amount of shots a player took compared to similar statistics as the previous page. The 13 players who took the most shots in the NHL regular season last year were selected (over 275 shots) and plotted with each other to see how their strengths matched up. Another reason I chose Shots Taken is because the number of shots a player takes is not necessarily an indicator of offensive threat, but paired with these other statistics you can see the strengths of most of these players."),
                 p("By only displaying the players who shot the most -- implying that they had more opportunities than others to get a goal for their team --  it allows for conclusions to be drawn in:"),
                 p("a) did they produce goals at a high level?"),
                 p("b) if they did not produce at a high level, were their assists high?"),
                 em("This is the number of times that their pass, or intial shot, allowed a teammate to score."),
                 br(),
-                p("c) did the players with the most opportunities to be on the ice (toi_percent and shifts) take advantage of it?")
+                p("c) did the players with the most opportunities to be on the ice (toi_percent and shifts) take advantage of it?"),
+                h2("Summary of Findings:"),
+                h4("1. First it it interesting to go to Goals and see if the men taking the most shots are actually scoring the most, or if they have a tendency to shoot a lot, but don’t necessarily get the results."),
+                h5("In this statistic notable points are:"),
+                h5("a) Alex Ovechkin (Washington) takes a lot of shots and he scores a lot of goals"),
+                h5("b) Contrastingly, Brent Burns (San Jose) was third in shots taken last year, but he scored less than half of the goals Ovechkin did."),
+                h5("c) Connor McDavid (Edmonton) and Taylor Hall (New Jersey) are examples of guys who do not shoot as often as Ovechkin, but they scored within 10 goals of him."),
+                br(),
+                h4("2. From here, you can plot Assists against Shots Taken and see why Brent Burns is so offensively dangerous."),
+                h5("Though he is not scoring as dominantly as others, you can see his playmaking abilities in that his shots may not be going in, but his teammates are either getting the rebounds or he is setting up his teammates for goals."),
+                br(),
+                h4("3. Shifts and Time-on-Ice are interesting because you can try and gauge if a player is shooting or scoring more because he gets more time on the ice than other players."),
+                h5("Another area where Alex Ovechkin shines is that coming from a team that splits ice time more evenly between all four offensive lines, he gets less shifts but is still a threat offensively whenever he is on the ice."),
+                br(),
+                h4("4. Finally, Penalties in minutes is on here because I wanted to see if the players who were getting the most offensive opportunities tended to stay out of penalty trouble, or if there were again outliers in being more physical but also being an offensive threat."),
+                h5("Evander Kane (Buffalo) is the interesting player in this statistic because he is in the middle for most shots taken, yet he had the most penalty minutes in this elite group by a wide margin. Meaning E. Kane gets less time on ice due to penalties but is still one of the highest shot producers in the league.")
          )
         )
        )
-      ),
-
-#creating third tab for demographic stats
-#given the large number of athletes representing the United States and Canada, it is interesting to look at what countries top talent comes from and if there is a correlation to success in the league
-
-tabPanel("International Representation",
-         
-         fluidPage(
-           
-           titlePanel("Country Representation and Corresponding National Stats"),
-           
-           # Inputting sidebar with all statistics that can be selected
-           
-           sidebarLayout(
-             
-             sidebarPanel(
-               
-               selectInput("plot3",
-                           "Statistic:",
-                           choices = c("Goals" = "g",
-                                       "Assists" = "a",
-                                       "Games Played" = "gp",
-                                       "Penalty Mintues" = "pim"))),
-
-             
-             # create my output to be used for the demographics tab
-             
-             mainPanel(
-               plotOutput("nationalities"),
-               h3("What are you looking at?"),
-               p("The most prominent feature of this graphic are the x-values of the bar plot. Each bar represents a country that has at least one representative who actively played in the 2017-2018 NHL season."),
-               p("Within these bar plots is the make-up of how many players within that country play each position on the ice. Though this may not seem like a crucial variable, it is another way to determine if certain positions on the ice are better suited for dominance in offensive talent."),
-               p("Finally, you are able to select statistics that lead to and are direct contributors to how much offence a player contributes. This is interesting to see the increase and decrease of each position within a nation in regards to each differnt statistic."),
-               h3("Summary of Findings:"),
-               p("The instinct to answering if centers and wingers are more easily inclined to scoring can be contested with the idea that defensemen get more time on the ice to set up plays or create offence."),
-               p("This graphic, though skewed towards the heavily Canadian and American make-up of the NHL, can be very interesting to compare to the two previous tabs. This is because when determining elite status in the NHL, it is interesting to note if the US and Canada have a significantly greater number of elite players, as one would expect with the percentage of the league they comprise. Or is it that it does not matter how many people come from a certain part of the world, just that elite talent is spread out among them.")
-               )
-            
-          )
-        )
-      )
+     )
 )
 
 
@@ -243,24 +228,6 @@ server <- function(input, output) {
       scale_color_manual(values = c(C = "red", RW = "blue", LW = "dark green", D = "purple")) +
       guides(color = guide_legend("Player Position")) +
       xlab("Shots Taken") +
-      ylab("Statistic") +
-      labs(caption = "Data from http://www.hockeyabstract.com/testimonials/nhl2017-18")
-  })
-  
-  output$nationalities <- renderPlot({
-    
-    data %>%
-      mutate(position = case_when(position == "C" ~ "Center",
-                                  position == "LW" ~ "Left Wing",
-                                  position == "RW" ~ "Right Wing",
-                                  position == "D" ~ "Defense",
-                                  position == "LW/C" ~ "Left Wing",
-                                  position == "RW/C" ~ "Right Wing")) %>% 
-      group_by(cntry) %>% 
-      ggplot(aes_string(x = "cntry", y = input$plot3, fill = "position")) +
-      geom_bar(stat = "identity") +
-      guides(color = guide_legend("Player Position")) +
-      xlab("Country") +
       ylab("Statistic") +
       labs(caption = "Data from http://www.hockeyabstract.com/testimonials/nhl2017-18")
   })
