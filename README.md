@@ -1,7 +1,7 @@
 
-# Main Question:
+# Main Idea:
 
-Is the number of goals or points an athlete gets the determining factor how successful they are?
+Wanted to look at what statistics specific elite NHL players prosper in compared to their teammates and opponents, and if those advantages arise out of high opportunity given or chances made from the limited opportunity they recieve.
 
 
 # Motivation:
